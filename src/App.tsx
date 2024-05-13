@@ -1,14 +1,10 @@
 import * as React from 'react'
 
-import LoginForm from './components/LoginForm/LoginForm'
-import Navbar from './components/Navbar/Navbar'
+import { Navigation } from './routes/Navigation'
 
 function App (): React.JSX.Element {
   return (
-    <>
-    <Navbar />
-    <LoginForm />
-    </>
+    <Navigation />
   )
 }
 

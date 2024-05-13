@@ -1,11 +1,27 @@
+import type { FormikErrors } from 'formik'
 import * as React from 'react'
 
-const LoginForm: React.FC = () => {
+export interface UserForm {
+  user: string
+  password: string
+}
+
+export interface LoginFormProps {
+  handleSubmit: React.FormEventHandler<HTMLFormElement>
+  handleChange: (params: unknown) => void
+  errors: FormikErrors<UserForm> // errors.user. ....errors.password...
+  isValidUser: boolean
+}
+
+// const LoginForm : React.FC<LoginFormProps> = ({ handleChange, handleSubmit, errors, isValidUser } => {
+
+const LoginForm = ({ handleChange, handleSubmit, errors, isValidUser }: LoginFormProps): React.JSX.Element => {
+  console.log('errors', errors)
   return (
     <div className="w-full max-w-2xl mx-auto mt-10">
     <form
       className="bg-white rounded px-8 pt-6 pb-8 mb-4"
-      onSubmit={() => {}}
+      onSubmit={handleSubmit}
     >
       <div className="mb-6">
         <label
@@ -20,8 +36,11 @@ const LoginForm: React.FC = () => {
           type="text"
           name="user"
           placeholder="Username"
-          onChange={() => {}}
+          onChange={handleChange}
         />
+        {errors.user !== null && (
+          <p className="text-red-500 text-xs italic">{errors.user}</p>
+        )}
         {/* Errors */}
       </div>
       <div className="mb-6">
@@ -37,15 +56,17 @@ const LoginForm: React.FC = () => {
           type="password"
           name="password"
           placeholder="******************"
-          onChange={() => {}}
+          onChange={handleChange}
         />
+        {errors.password !== null && (
+          <p className="text-red-500 text-xs italic">{errors.password}</p>
+        )}
         {/* Errors */}
       </div>
       <div className="flex items-center justify-between">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline"
           type="submit"
-          disabled={true}
         >
           Ingresar
         </button>
